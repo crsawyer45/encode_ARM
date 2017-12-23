@@ -1,4 +1,8 @@
 # encode_ARM
 encodes a message in ARM assembly by adding character values of a message and a "key" together
 
-This program works with changing values in registers in a subroutine and then returning those values back to the main function.  In main, there are a few strings of text each placed in char arrays.  Every time the ARM program is called, it takes four arguments: the input string that will be encoded/decoded, the output string, 
+This program works with changing values in registers in a subroutine and then returning those values back to the main function.  In main, there are a few strings of text each placed in char arrays.  Every time the ARM program is called, it takes four arguments: the input string that will be encoded/decoded, the output string, the "key" string used to encode, and an integer value that indicates to either encode or decode.
+
+To encode the input string, each letter in the array is added to the character value of the letter in the corresponding location in the key string.  For example, if my name, "colin" was the input string and the key string was "aaaaa", then the output string would be "dpmjo".  Letter "a" has a character value of 1 since its the first letter in the alphabet, thus the encode in this case results in all the letters becoming the letter one after whatever they are.  If the sum of the character values extends past the last letter in the alphabet, then the value overflows back to "a" and continues through the alphabet again ("z" + "a" = "a").
+
+If there is a space in the input string, then there is a space in that location of the output string.  If there is a space in the key string, but there is no space in the input string, then that letter is not encoded.  If the key string is shorter than the input string, then the key string is repeated until the number of characters needed to encode all of the input is met.  And finally, to decode, simply do all of the encoding steps in reverse.
